@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="StudyTask, aplicación web para organizar tareas estudiantiles.">
+
+    <title>StudyTask | Inicio</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="contenedor encabezado">
+
+            <h1 class="logo">StudyTask</h1>
+
+            <nav aria-label="Menú principal">
+                <ul class="menu">
+                    <li><a href="index.html" aria-current="page">Inicio</a></li>
+                    <li><a href="paginas/tareas.html">Tareas</a></li>
+                    <li><a href="paginas/contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="bienvenida">
+
+            <div class="contenedor">
+
+                <h2>Organiza tus tareas, alcanza tus metas</h2>
+
+                <p>
+                    StudyTask es una herramienta diseñada para ayudarte
+                    a organizar tus actividades académicas, administrar
+                    tus pendientes y mejorar tu productividad.
+                </p>
+
+                <a href="paginas/tareas.html" class="boton">
+                    Administrar mis tareas
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="resumen contenedor">
+
+            <h2>Mi resumen académico</h2>
+
+            <div class="tarjetas">
+
+                <article class="tarjeta">
+                    <h3>Tareas registradas</h3>
+                    <p id="totalTareas">0</p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>Tareas pendientes</h3>
+                    <p id="tareasPendientes">0</p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>Tareas completadas</h3>
+                    <p id="tareasCompletadas">0</p>
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <p>
+            &copy; 2026 StudyTask - Gestor de Tareas Estudiantiles.
+            Todos los derechos reservados.
+        </p>
+
+    </footer>
+
+    <script src="js/principal.js"></script>
+
+</body>
+</html>

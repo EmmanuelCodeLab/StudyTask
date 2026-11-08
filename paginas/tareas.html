@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<meta name="description" content="Administra tus actividades académicas con StudyTask.">
+
+<title>StudyTask | Tareas</title>
+
+<link rel="stylesheet" href="../css/estilos.css">
+
+
+</head>
+
+<body>
+
+
+<header>
+    <div class="contenedor encabezado">
+
+        <h1 class="logo">StudyTask</h1>
+
+        <nav aria-label="Menú principal">
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="tareas.html" aria-current="page">Tareas</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<main class="contenedor">
+
+    <section class="seccion-tareas">
+
+        <h2>Administración de tareas</h2>
+
+        <p>Registra y organiza tus actividades académicas.</p>
+
+        <form id="formularioTarea">
+
+            <div class="grupo-formulario">
+
+                <label for="nombreTarea">Nombre de la tarea:</label>
+
+                <input
+                    type="text"
+                    id="nombreTarea"
+                    maxlength="80"
+                    required
+                    placeholder="Ejemplo: Proyecto de programación">
+
+            </div>
+
+            <div class="grupo-formulario">
+
+                <label for="descripcion">Descripción:</label>
+
+                <textarea
+                    id="descripcion"
+                    maxlength="300"
+                    required
+                    placeholder="Describe la actividad"></textarea>
+
+            </div>
+
+            <div class="grupo-formulario">
+
+                <label for="fecha">Fecha de entrega:</label>
+
+                <input type="date" id="fecha" required>
+
+            </div>
+
+            <div class="grupo-formulario">
+
+                <label for="prioridad">Prioridad:</label>
+
+                <select id="prioridad" required>
+
+                    <option value="">Selecciona una prioridad</option>
+
+                    <option value="Alta">Alta</option>
+
+                    <option value="Media">Media</option>
+
+                    <option value="Baja">Baja</option>
+
+                </select>
+
+            </div>
+
+            <button type="submit" class="boton">
+                Registrar tarea
+            </button>
+
+        </form>
+
+        <p id="mensaje" role="status" aria-live="polite"></p>
+
+    </section>
+
+    <section class="lista-tareas">
+
+        <h2>Mis actividades</h2>
+
+        <div id="contenedorTareas">
+
+            <p id="sinTareas">Todavía no tienes tareas registradas.</p>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+
+    <p>
+        &copy; 2026 StudyTask - Gestor de Tareas Estudiantiles.
+    </p>
+
+</footer>
+
+<script src="../js/tareas.js"></script>
+
+
+</body>
+
+</html>

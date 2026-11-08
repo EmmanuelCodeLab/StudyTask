@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Formulario de contacto de StudyTask.">
+
+    <title>StudyTask | Contacto</title>
+
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="contenedor encabezado">
+
+            <h1 class="logo">StudyTask</h1>
+
+            <nav aria-label="Menú principal">
+                <ul class="menu">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="tareas.html">Tareas</a></li>
+                    <li><a href="contacto.html" aria-current="page">Contacto</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="seccion-tareas">
+
+            <h2>Contáctanos</h2>
+
+            <p>
+                Si tienes alguna consulta o sugerencia sobre StudyTask,
+                completa el siguiente formulario.
+            </p>
+
+            <form id="formularioContacto" novalidate>
+
+                <div class="grupo-formulario">
+
+                    <label for="nombre">Nombre completo:</label>
+
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        maxlength="80"
+                        autocomplete="name"
+                        required>
+
+                </div>
+
+                <div class="grupo-formulario">
+
+                    <label for="correo">Correo electrónico:</label>
+
+                    <input
+                        type="email"
+                        id="correo"
+                        name="correo"
+                        maxlength="254"
+                        autocomplete="email"
+                        required>
+
+                </div>
+
+                <div class="grupo-formulario">
+
+                    <label for="asunto">Asunto:</label>
+
+                    <input
+                        type="text"
+                        id="asunto"
+                        name="asunto"
+                        maxlength="100"
+                        required>
+
+                </div>
+
+                <div class="grupo-formulario">
+
+                    <label for="mensajeContacto">Mensaje:</label>
+
+                    <textarea
+                        id="mensajeContacto"
+                        name="mensaje"
+                        maxlength="500"
+                        required></textarea>
+
+                </div>
+
+                <button type="submit" class="boton">
+                    Enviar mensaje
+                </button>
+
+            </form>
+
+            <div id="resultadoContacto"
+                 role="status"
+                 aria-live="polite">
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <p>
+            &copy; 2026 StudyTask - Gestor de Tareas Estudiantiles.
+        </p>
+
+    </footer>
+
+    <script src="../js/contacto.js"></script>
+
+</body>
+
+</html>
