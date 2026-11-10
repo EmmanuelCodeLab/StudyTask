@@ -1,195 +1,190 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-```
-const formulario = document.getElementById("formularioTarea");
+    const formulario = document.getElementById("formularioTarea");
+    const contenedor = document.getElementById("contenedorTareas");
+    const mensaje = document.getElementById("mensaje");
 
-const contenedor = document.getElementById("contenedorTareas");
+    let tareas = [];
 
-const mensaje = document.getElementById("mensaje");
+    // RECUPERAR TAREAS
+    try {
+        tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+    } catch (error) {
+        tareas = [];
+        console.error("Error al recuperar las tareas:", error);
+    }
 
-let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+    // GUARDAR TAREAS
+    function guardarTareas() {
 
-// GUARDAR TAREAS
+        try {
+            localStorage.setItem("tareas", JSON.stringify(tareas));
+            return true;
 
-function guardarTareas() {
-
-    localStorage.setItem("tareas", JSON.stringify(tareas));
-
-}
-
-// MOSTRAR TAREAS
-
-function mostrarTareas() {
-
-    contenedor.replaceChildren();
-
-    if (tareas.length === 0) {
-
-        const aviso = document.createElement("p");
-
-        aviso.textContent = "Todavía no tienes tareas registradas.";
-
-        contenedor.appendChild(aviso);
-
-        return;
+        } catch (error) {
+            console.error("Error al guardar:", error);
+            mensaje.textContent = "No se pudieron guardar las tareas.";
+            return false;
+        }
 
     }
 
-    tareas.forEach(function (tarea, indice) {
+    // MOSTRAR TAREAS
+    function mostrarTareas() {
 
-        const tarjeta = document.createElement("article");
+        contenedor.replaceChildren();
 
-        tarjeta.className = "tarea";
+        if (tareas.length === 0) {
 
-        if (tarea.completada) {
-            tarjeta.classList.add("completada");
+            const aviso = document.createElement("p");
+            aviso.textContent = "Todavía no tienes tareas registradas.";
+
+            contenedor.appendChild(aviso);
+            return;
         }
 
-        const titulo = document.createElement("h3");
+        tareas.forEach(function (tarea, indice) {
 
-        titulo.textContent = tarea.nombre;
+            const tarjeta = document.createElement("article");
+            tarjeta.className = "tarea";
 
-        const descripcion = document.createElement("p");
+            if (tarea.completada) {
+                tarjeta.classList.add("completada");
+            }
 
-        descripcion.textContent = "Descripción: " + tarea.descripcion;
+            const titulo = document.createElement("h3");
+            titulo.textContent = tarea.nombre;
 
-        const fecha = document.createElement("p");
+            const descripcion = document.createElement("p");
+            descripcion.textContent = "Descripción: " + tarea.descripcion;
 
-        fecha.textContent = "Fecha de entrega: " + tarea.fecha;
+            const fecha = document.createElement("p");
+            fecha.textContent = "Fecha de entrega: " + tarea.fecha;
 
-        const prioridad = document.createElement("p");
+            const prioridad = document.createElement("p");
+            prioridad.textContent = "Prioridad: " + tarea.prioridad;
 
-        prioridad.textContent = "Prioridad: " + tarea.prioridad;
+            prioridad.classList.add(
+                "prioridad-" + tarea.prioridad.toLowerCase()
+            );
 
-        prioridad.classList.add(
-            "prioridad-" + tarea.prioridad.toLowerCase()
-        );
+            const estado = document.createElement("p");
 
-        const estado = document.createElement("p");
+            estado.textContent = tarea.completada
+                ? "Estado: Completada"
+                : "Estado: Pendiente";
 
-        estado.textContent = tarea.completada
-            ? "Estado: Completada"
-            : "Estado: Pendiente";
+            const botones = document.createElement("div");
+            botones.className = "botones-tarea";
 
-        const botones = document.createElement("div");
+            // BOTÓN COMPLETAR
+            const completar = document.createElement("button");
 
-        botones.className = "botones-tarea";
+            completar.type = "button";
+            completar.className = "boton-completar";
 
-        const completar = document.createElement("button");
+            completar.textContent = tarea.completada
+                ? "Marcar como pendiente"
+                : "Completar tarea";
 
-        completar.type = "button";
+            completar.addEventListener("click", function () {
 
-        completar.className = "boton-completar";
+                tareas[indice].completada =
+                    !tareas[indice].completada;
 
-        completar.textContent = tarea.completada
-            ? "Marcar como pendiente"
-            : "Completar tarea";
+                if (guardarTareas()) {
+                    mostrarTareas();
+                }
 
-        completar.addEventListener("click", function () {
+            });
 
-            tareas[indice].completada = !tareas[indice].completada;
+            // BOTÓN ELIMINAR
+            const eliminar = document.createElement("button");
 
-            guardarTareas();
+            eliminar.type = "button";
+            eliminar.className = "boton-eliminar";
+            eliminar.textContent = "Eliminar tarea";
+
+            eliminar.addEventListener("click", function () {
+
+                if (confirm("¿Deseas eliminar esta tarea?")) {
+
+                    tareas.splice(indice, 1);
+
+                    if (guardarTareas()) {
+                        mostrarTareas();
+                    }
+
+                }
+
+            });
+
+            botones.appendChild(completar);
+            botones.appendChild(eliminar);
+
+            tarjeta.appendChild(titulo);
+            tarjeta.appendChild(descripcion);
+            tarjeta.appendChild(fecha);
+            tarjeta.appendChild(prioridad);
+            tarjeta.appendChild(estado);
+            tarjeta.appendChild(botones);
+
+            contenedor.appendChild(tarjeta);
+
+        });
+
+    }
+
+    // REGISTRAR TAREAS
+    formulario.addEventListener("submit", function (evento) {
+
+        evento.preventDefault();
+
+        const nombre = document.getElementById("nombreTarea").value.trim();
+
+        const descripcion = document.getElementById("descripcion").value.trim();
+
+        const fecha = document.getElementById("fecha").value;
+
+        const prioridad = document.getElementById("prioridad").value;
+
+        if (!nombre || !descripcion || !fecha || !prioridad) {
+
+            mensaje.textContent = "Completa todos los campos.";
+            return;
+
+        }
+
+        const nuevaTarea = {
+
+            nombre: nombre,
+            descripcion: descripcion,
+            fecha: fecha,
+            prioridad: prioridad,
+            completada: false
+
+        };
+
+        tareas.push(nuevaTarea);
+
+        if (guardarTareas()) {
 
             mostrarTareas();
 
-        });
+            formulario.reset();
 
-        const eliminar = document.createElement("button");
+            mensaje.textContent =
+                "¡Tarea registrada correctamente!";
 
-        eliminar.type = "button";
+        } else {
 
-        eliminar.className = "boton-eliminar";
+            tareas.pop();
 
-        eliminar.textContent = "Eliminar tarea";
-
-        eliminar.addEventListener("click", function () {
-
-            if (confirm("¿Deseas eliminar esta tarea?")) {
-
-                tareas.splice(indice, 1);
-
-                guardarTareas();
-
-                mostrarTareas();
-
-            }
-
-        });
-
-        botones.appendChild(completar);
-
-        botones.appendChild(eliminar);
-
-        tarjeta.appendChild(titulo);
-
-        tarjeta.appendChild(descripcion);
-
-        tarjeta.appendChild(fecha);
-
-        tarjeta.appendChild(prioridad);
-
-        tarjeta.appendChild(estado);
-
-        tarjeta.appendChild(botones);
-
-        contenedor.appendChild(tarjeta);
+        }
 
     });
 
-}
-
-// REGISTRAR TAREAS
-
-formulario.addEventListener("submit", function (evento) {
-
-    evento.preventDefault();
-
-    const nombre = document.getElementById("nombreTarea").value.trim();
-
-    const descripcion = document.getElementById("descripcion").value.trim();
-
-    const fecha = document.getElementById("fecha").value;
-
-    const prioridad = document.getElementById("prioridad").value;
-
-    if (!nombre || !descripcion || !fecha || !prioridad) {
-
-        mensaje.textContent = "Completa todos los campos.";
-
-        return;
-
-    }
-
-    const nuevaTarea = {
-
-        nombre: nombre,
-
-        descripcion: descripcion,
-
-        fecha: fecha,
-
-        prioridad: prioridad,
-
-        completada: false
-
-    };
-
-    tareas.push(nuevaTarea);
-
-    guardarTareas();
-
+    // CARGAR TAREAS INICIALES
     mostrarTareas();
-
-    formulario.reset();
-
-    mensaje.textContent = "¡Tarea registrada correctamente!";
-
-});
-
-// MOSTRAR LAS TAREAS AL CARGAR LA PÁGINA
-
-mostrarTareas();
-```
 
 });
