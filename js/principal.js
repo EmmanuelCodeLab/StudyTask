@@ -1,23 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-```
-const tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+    const totalTareas = document.getElementById("totalTareas");
+    const tareasPendientes = document.getElementById("tareasPendientes");
+    const tareasCompletadas = document.getElementById("tareasCompletadas");
 
-const total = tareas.length;
+    let tareas = [];
 
-const pendientes = tareas.filter(function (tarea) {
-    return !tarea.completada;
-}).length;
+    try {
+        tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+    } catch (error) {
+        console.error("Error al recuperar las tareas:", error);
+    }
 
-const completadas = tareas.filter(function (tarea) {
-    return tarea.completada;
-}).length;
+    const total = tareas.length;
 
-document.getElementById("totalTareas").textContent = total;
+    const pendientes = tareas.filter(function (tarea) {
+        return tarea.completada === false;
+    }).length;
 
-document.getElementById("tareasPendientes").textContent = pendientes;
+    const completadas = tareas.filter(function (tarea) {
+        return tarea.completada === true;
+    }).length;
 
-document.getElementById("tareasCompletadas").textContent = completadas;
-```
+    totalTareas.textContent = total;
+    tareasPendientes.textContent = pendientes;
+    tareasCompletadas.textContent = completadas;
+
+    console.log("Total de tareas:", total);
+    console.log("Tareas pendientes:", pendientes);
+    console.log("Tareas completadas:", completadas);
 
 });
