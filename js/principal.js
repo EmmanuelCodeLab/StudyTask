@@ -15,19 +15,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const total = tareas.length;
 
     const pendientes = tareas.filter(function (tarea) {
-        return tarea.completada === false;
+        return !tarea.completada;
     }).length;
 
     const completadas = tareas.filter(function (tarea) {
-        return tarea.completada === true;
+        return tarea.completada;
     }).length;
 
     totalTareas.textContent = total;
     tareasPendientes.textContent = pendientes;
     tareasCompletadas.textContent = completadas;
-
-    console.log("Total de tareas:", total);
-    console.log("Tareas pendientes:", pendientes);
-    console.log("Tareas completadas:", completadas);
 
 });
