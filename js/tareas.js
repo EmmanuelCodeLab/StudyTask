@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const contenedor = document.getElementById("contenedorTareas");
     const mensaje = document.getElementById("mensaje");
 
+    console.log("Formulario:", formulario);
+    console.log("Contenedor:", contenedor);
+    console.log("Mensaje:", mensaje);
+
     let tareas = [];
 
     // RECUPERAR TAREAS
